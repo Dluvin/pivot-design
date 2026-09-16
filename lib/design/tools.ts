@@ -1,0 +1,58 @@
+export const DESIGN_TOOLS = [
+  {
+    id: "job",
+    href: "/",
+    label: "Main menu",
+    title: "Job header",
+    description: "Customer, field, salesperson — used on every worksheet.",
+  },
+  {
+    id: "pivot-electric",
+    href: "/pivot-electric",
+    label: "Pivot electric",
+    title: "Center pivot amp draw & voltage drop",
+    description: "Span wire, tower current, last-tower voltage, generator size.",
+  },
+  {
+    id: "fusing",
+    href: "/fusing",
+    label: "Fusing report",
+    title: "Fusing report",
+    description: "Panel, span, booster, and drive-unit fuse packages.",
+  },
+  {
+    id: "mainline-electrical",
+    href: "/mainline-electrical",
+    label: "Mainline electrical",
+    title: "Mainline electrical",
+    description: "Copper vs aluminum feeder size and voltage drop.",
+  },
+  {
+    id: "pivot-pressure",
+    href: "/pivot-pressure",
+    label: "Pivot pressure",
+    title: "Center pivot pressure loss",
+    description: "Span pipe friction, regulator pressure, end-gun GPM.",
+  },
+  {
+    id: "mainline-pressure",
+    href: "/mainline-pressure",
+    label: "Mainline pressure",
+    title: "Mainline pressure loss",
+    description: "Hazen-Williams friction on PIP, IPS, or custom pipe.",
+  },
+  {
+    id: "pivot-timer",
+    href: "/pivot-timer",
+    label: "Pivot timer",
+    title: "Pivot percent timer chart",
+    description: "Hours and inches per revolution by percent timer.",
+  },
+  {
+    id: "linear-timer",
+    href: "/linear-timer",
+    label: "Linear timer",
+    title: "Linear percent timer chart",
+    description: "Hours and inches per pass for a linear machine.",
+  },
+] as const;
