@@ -147,7 +147,7 @@ export function Select({
 
 export function Result({ label, value, warn }: { label: string; value: string; warn?: boolean }) {
   return (
-    <div className="rounded-lg border border-stone-200 bg-white p-3">
+    <div className={`rounded-lg border bg-white p-3 ${warn ? "border-red-400" : "border-stone-200"}`}>
       <p className="text-xs uppercase tracking-wide text-stone-500">{label}</p>
       <p className={`mt-1 text-xl font-semibold ${warn ? "text-red-700" : ""}`}>{value}</p>
     </div>

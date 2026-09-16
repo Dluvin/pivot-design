@@ -25,6 +25,7 @@ export function MainlinePressureForm() {
     setInput({ ...input, ...partial });
   }
   const sizes = input.pipeKind === "ips" ? Object.keys(IPS_PIPE) : Object.keys(PIP_PIPE);
+  const velocityHigh = result.velocity > 5;
 
   return (
     <DesignChrome title="Mainline pressure loss" subtitle="Hazen-Williams friction on PIP, IPS, or custom wall pipe." active="mainline-pressure">
@@ -76,8 +77,13 @@ export function MainlinePressureForm() {
         <Result label="Pipe ID, in" value={fmt(result.id, 3)} />
         <Result label="Friction, ft" value={fmt(result.headFt)} />
         <Result label="Friction, psi" value={fmt(result.psi)} />
-        <Result label="Velocity, ft/s" value={fmt(result.velocity)} />
+        <Result label="Velocity, ft/s" value={fmt(result.velocity)} warn={velocityHigh} />
       </div>
+      {velocityHigh ? (
+        <p className="mt-3 text-sm font-semibold text-red-700">
+          Warning — velocity exceeds 5.0 ft/s. Increase pipe size or reduce GPM.
+        </p>
+      ) : null}
     </DesignChrome>
   );
 }
