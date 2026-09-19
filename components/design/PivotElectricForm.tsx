@@ -139,9 +139,13 @@ export function PivotElectricForm() {
       </div>
 
       <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <Result label="System current, A" value={fmt(result.systemCurrent)} />
+        <Result label="System current, A" value={fmt(result.systemCurrent)} warn={result.systemCurrent > 45} />
         <Result label="Voltage drop, V" value={fmt(result.voltageDrop)} warn={result.warnings.some((w) => w.includes("voltage"))} />
-        <Result label="Last tower voltage" value={fmt(result.lastTowerVoltage)} />
+        <Result
+          label="Last tower voltage"
+          value={fmt(result.lastTowerVoltage)}
+          warn={result.warnings.some((w) => w.includes("Last tower"))}
+        />
         <Result label="Length to LRDU, ft" value={fmt(result.lengthToLrdu, 0)} />
         <Result label="Power, kW" value={fmt(result.powerKw)} />
         <Result label="Generator HP req." value={fmt(result.generatorHp)} />
@@ -154,6 +158,7 @@ export function PivotElectricForm() {
       <p className="mt-3 text-sm text-stone-600">
         Drive units {result.driveUnits} · std motors {result.stdMotors} · high motors {result.highMotors} · wire 8/10/12/14 ga:{" "}
         {result.wireCounts.g8}/{result.wireCounts.g10}/{result.wireCounts.g12}/{result.wireCounts.g14}
+        {result.wireCounts.g14 > 5 ? " · 14 ga over limit" : ""}
       </p>
       {result.warnings.length ? (
         <ul className="mt-3 list-disc pl-5 text-sm text-red-800">

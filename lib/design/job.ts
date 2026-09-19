@@ -7,6 +7,8 @@ export type DesignJob = {
   salesperson: string;
   dealership: string;
   comments: string;
+  pivotGpm: number;
+  desiredLengthFt: number;
 };
 
 export const DEFAULT_JOB: DesignJob = {
@@ -18,6 +20,8 @@ export const DEFAULT_JOB: DesignJob = {
   salesperson: "",
   dealership: "American Irrigation",
   comments: "",
+  pivotGpm: 800,
+  desiredLengthFt: 1284,
 };
 
 export const JOB_KEY = "ag-design-job";
@@ -27,3 +31,6 @@ export const MAINLINE_ELEC_KEY = "ag-design-mainline-elec";
 export const MAINLINE_PSI_KEY = "ag-design-mainline-psi";
 export const PIVOT_TIMER_KEY = "ag-design-pivot-timer";
 export const LINEAR_TIMER_KEY = "ag-design-linear-timer";
+export const END_GUN_KEY = "ag-design-end-gun";
+export const GPM_IAR_KEY = "ag-design-gpm-iar";
+export const SUMMARY_KEY = "ag-design-summary";

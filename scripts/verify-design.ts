@@ -1,3 +1,5 @@
+import { computeEndGun } from "../lib/design/end-gun";
+import { computeGpmIar } from "../lib/design/gpm-iar";
 import { computeMainlinePressure } from "../lib/design/mainline-pressure";
 import { computePivotElectric } from "../lib/design/pivot-electric";
 import { computeLinearTimer, computePivotTimer } from "../lib/design/timers";
@@ -47,6 +49,31 @@ check("id", mp.id, 7.658, 0.01);
 check("ft", mp.headFt, 7.4, 0.15);
 check("psi", mp.psi, 3.2, 0.1);
 check("vel", mp.velocity, 5.6, 0.1);
+check("vel m/s", mp.velocityMps, 5.6 * 0.3048, 0.05);
+
+const iar = computeGpmIar({
+  machineGpm: 800,
+  lengthToEgFt: 1284,
+  endGunRadiusFt: 100,
+  wettedDiameterFt: 30,
+  spacingFt: 9,
+  outletMode: true,
+  outletDistanceFt: 1284,
+});
+check("iar gpm", iar.sprinklerGpm, (800 * 2 * 1284 * 9) / 1384 ** 2, 0.2);
+check("iar in/hr", iar.iarInHr, (((1284 + 1) ** 2 - 1284 ** 2) / 1384 ** 2) * 800 * (96.25 / 30), 0.05);
+
+const eg = computeEndGun({
+  pivotGpm: 800,
+  distanceToLrdu: 1105.5,
+  overhangFt: 54,
+  endPressurePsi: 15,
+  degrees: 360,
+  endGunOnPct: 1,
+});
+check("eg 2hp radius", eg.hp2.radiusFt, 80, 40);
+if (eg.hp2.nozzlePsi < 40) console.log("OK eg 2hp low-psi warning path");
+
 
 const pt = computePivotTimer({
   distanceToLrdu: 1105.5,

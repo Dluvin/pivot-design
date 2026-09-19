@@ -1,4 +1,4 @@
-/** Tables copied from Pivot Design.xls (Valley Pivot Design 1.0, Oct 2001). */
+/** Tables copied from Pivot Design.xls (Valley 1.0, Oct 2001) and Pivot Design 1.52 (Nov 2009). */
 
 export const MOTOR_CURRENT: { hp: number | string; hz60: number; hz50: number }[] = [
   { hp: 0, hz60: 0, hz50: 0 },

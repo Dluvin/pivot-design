@@ -23,6 +23,12 @@ export function vlookupApprox<T>(table: [number, T][], lookup: number): T | unde
   return found;
 }
 
+/** Excel approximate VLOOKUP on a sorted first column (largest key ≤ lookup). */
+export function vlookupSorted(table: [number, number][], lookup: number, fallback = 0) {
+  const found = vlookupApprox(table, lookup);
+  return found == null ? fallback : found;
+}
+
 export function vlookupGen(kw: number) {
   let row = GENERATOR_TABLE[0];
   for (const item of GENERATOR_TABLE) {

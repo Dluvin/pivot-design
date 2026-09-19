@@ -42,6 +42,20 @@ export const DESIGN_TOOLS = [
     description: "Hazen-Williams friction on PIP, IPS, or custom pipe.",
   },
   {
+    id: "end-gun",
+    href: "/end-gun",
+    label: "End gun radius",
+    title: "End gun radius",
+    description: "Nelson SR100 throw, nozzle, and acres by booster size.",
+  },
+  {
+    id: "gpm-iar",
+    href: "/gpm-iar",
+    label: "GPM & IAR",
+    title: "Sprinkler GPM & IAR",
+    description: "Outlet GPM and instantaneous application rate.",
+  },
+  {
     id: "pivot-timer",
     href: "/pivot-timer",
     label: "Pivot timer",
@@ -54,5 +68,19 @@ export const DESIGN_TOOLS = [
     label: "Linear timer",
     title: "Linear percent timer chart",
     description: "Hours and inches per pass for a linear machine.",
+  },
+  {
+    id: "summary",
+    href: "/summary",
+    label: "Summary",
+    title: "Design summary",
+    description: "Acres, TDH, brake HP, annual energy cost.",
+  },
+  {
+    id: "tables",
+    href: "/tables",
+    label: "Reference tables",
+    title: "Reference tables",
+    description: "Pipe, wire, motor, generator, tire, and SR100 tables.",
   },
 ] as const;

@@ -148,6 +148,12 @@ export function PivotPressureForm() {
         />
         <Result label="Flow deviation" value={`${fmt(result.flowDeviation * 100, 0)}%`} />
       </div>
+      {result.underwater > 0 ? (
+        <p className="mt-3 text-sm font-semibold text-red-700">
+          Flow too high at end gun. Try longer spans, more spans, or lower GPM. Max booster {fmt(result.maxBp, 0)} GPM
+          (1.52: 130 / 175 / 230 for 2 / 5 / 7½ HP).
+        </p>
+      ) : null}
     </DesignChrome>
   );
 }

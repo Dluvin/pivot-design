@@ -82,8 +82,12 @@ export function MainlineElectricalForm() {
         <Result label="Allowable drop, V" value={fmt(result.allow)} />
         <Result label="Max table number" value={fmt(result.tableNumber, 1)} />
       </div>
-      {result.ampWarn ? (
-        <p className="mt-3 text-sm text-red-800">Warning — confirm total amp draw does not exceed wire ampacity.</p>
+      {result.warnings.length ? (
+        <ul className="mt-3 list-disc pl-5 text-sm text-red-800">
+          {result.warnings.map((w) => (
+            <li key={w}>{w}</li>
+          ))}
+        </ul>
       ) : null}
       <div className="mt-6 grid gap-4 lg:grid-cols-2">
         {(["required", "desired"] as const).map((kind) => (
@@ -120,8 +124,12 @@ export function MainlineElectricalForm() {
                 </tr>
                 <tr>
                   <td className="py-1">Pivot end, V</td>
-                  <td>{result[kind].copper ? fmt(result[kind].copper.endVoltage) : "—"}</td>
-                  <td>{result[kind].aluminum ? fmt(result[kind].aluminum.endVoltage) : "—"}</td>
+                  <td className={result[kind].copper && result[kind].copper.endVoltage < result.minEnd ? "text-red-700" : ""}>
+                    {result[kind].copper ? fmt(result[kind].copper.endVoltage) : "—"}
+                  </td>
+                  <td className={result[kind].aluminum && result[kind].aluminum.endVoltage < result.minEnd ? "text-red-700" : ""}>
+                    {result[kind].aluminum ? fmt(result[kind].aluminum.endVoltage) : "—"}
+                  </td>
                 </tr>
               </tbody>
             </table>

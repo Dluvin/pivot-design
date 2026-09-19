@@ -16,7 +16,8 @@ export type PivotPressureInput = {
   unregulatedEndPsi: number;
 };
 
-const BP_GPM = { none: 0, "2hp": 130, "5hp": 180, "7.5hp": 190 };
+/** Valley 1.52 booster max GPM (2 / 5 / 7.5 HP). */
+export const BP_GPM = { none: 0, "2hp": 130, "5hp": 175, "7.5hp": 230 };
 
 function lookupFriction(percent: number) {
   const rounded = Math.round(percent);

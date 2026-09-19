@@ -22,7 +22,7 @@ export function computeFusing(electric: PivotElectricResult, booster: Booster, s
   const panel45 = amps > 30 ? 1 : 0;
   const phaseLoss30 =
     amps < 30 && (eq(bp, "5 HP BP") || eq(bp, "7 1/2 HP BP")) ? 1 : 0;
-  const fuse8to10 = amps > 30 && minG === 8 && electric.wireCounts.g10 > 1 ? 1 : 0;
+  const fuse8to10 = amps > 30 && minG === 8 && electric.wireCounts.g10 > 0 ? 1 : 0;
   const fuse10to12 = amps > 20 && maxG === 12 && minG < 12 ? 1 : 0;
   const booster45_2hp = eq(bp, "2 HP BP") && amps > 30 ? 1 : 0;
   const booster5hp = eq(bp, "5 HP BP") ? 1 : 0;
@@ -54,4 +54,18 @@ export function computeFusing(electric: PivotElectricResult, booster: Booster, s
     standardDrivePackages,
     highDrivePackages,
   };
+}
+
+export function fusingLineItems(fusing: FusingResult) {
+  return [
+    { qty: fusing.panel45, label: "45 amp panel" },
+    { qty: fusing.phaseLoss30, label: "30 amp phase loss contactor (5 or 7.5 hp booster without 45 amp panel)" },
+    { qty: fusing.fuse8to10, label: "45 amp — 8 ga to 10 ga wire fuse package" },
+    { qty: fusing.fuse10to12, label: "30 amp — 10 ga to 12 ga wire fuse package" },
+    { qty: fusing.booster45_2hp, label: "45 amp — 2 hp booster pump fuse package" },
+    { qty: fusing.booster5hp, label: "5 hp booster pump fuse package" },
+    { qty: fusing.booster75hp, label: "7.5 hp booster pump fuse package" },
+    { qty: fusing.standardDrivePackages, label: "Standard drive unit fuse package (excludes booster)" },
+    { qty: fusing.highDrivePackages, label: "High drive unit fuse package (excludes booster)" },
+  ];
 }

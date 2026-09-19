@@ -149,6 +149,10 @@ export function computePivotElectric(input: PivotElectricInput): PivotElectricRe
   const generatorHp = gen.efficiency ? powerKw / 0.746 / gen.efficiency : 0;
   const warnings: string[] = [];
   const g12 = rows.filter((r) => r.wireGauge === 12 && typeof r.motorHp !== "string").length;
+  const g14 = rows.filter((r) => r.wireGauge === 14 && typeof r.motorHp !== "string").length;
+  if (systemCurrent > 45) {
+    warnings.push("System current exceeds 45 A — 45 amp panel required.");
+  }
   if (input.frequencyHz === 60 && (input.pivotVoltage < 460 || input.pivotVoltage > 505)) {
     warnings.push("Supply should be 460–505 V at 60 Hz.");
   }
@@ -156,7 +160,14 @@ export function computePivotElectric(input: PivotElectricInput): PivotElectricRe
     warnings.push("Supply should be 360–420 V at 50 Hz.");
   }
   if ((input.frequencyHz === 60 && lastTowerVoltage < 440) || (input.frequencyHz === 50 && lastTowerVoltage < 340)) {
-    warnings.push("Last tower voltage is below the minimum.");
+    warnings.push("Last tower voltage is below the minimum (440 V at 60 Hz / 340 V at 50 Hz).");
+  }
+  const btMax = input.frequencyHz === 50 ? 380 : 480;
+  if (rows.some((r) => r.boosterTrans && r.voltage > btMax)) {
+    warnings.push(`Booster transformer voltage exceeds ${btMax} V.`);
+  }
+  if (g14 > 5) {
+    warnings.push("More than five 14 ga spans — reduce 14 ga count.");
   }
   const max12 =
     input.booster === "none"
