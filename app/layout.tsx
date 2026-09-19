@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { DM_Sans, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
+import { ScreenBrand } from "@/components/design/PrintBrand";
 
 const sans = DM_Sans({
   variable: "--font-sans-loaded",
@@ -27,7 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link href="/" className="font-display text-lg tracking-tight">
               Pivot Design
             </Link>
-            <p className="text-xs text-emerald-200">American Irrigation</p>
+            <ScreenBrand />
           </div>
         </header>
         <main className="mx-auto max-w-7xl px-4 py-8 print:max-w-none print:px-0 print:py-0">{children}</main>

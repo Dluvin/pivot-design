@@ -56,6 +56,17 @@ export function computeMainlineElectrical(input: MainlineElectricalInput) {
   const ampWarn = [required.copper, required.aluminum, desired.copper, desired.aluminum].some(
     (row) => row && row.ampacity < totalAmps,
   );
+  const minEnd = input.sourceVoltage >= 400 ? 440 : 340;
+  const endWarn = [required.copper, required.aluminum, desired.copper, desired.aluminum].some(
+    (row) => row && row.endVoltage < minEnd,
+  );
+  const warnings: string[] = [];
+  if (ampWarn) warnings.push("Confirm total amp draw does not exceed wire ampacity.");
+  if (endWarn) {
+    warnings.push(
+      `Last-tower (pivot end) voltage is below ${minEnd} V. Increase feeder size or raise source voltage.`,
+    );
+  }
 
-  return { totalAmps, allow, tableNumber, required, desired, ampWarn };
+  return { totalAmps, allow, tableNumber, required, desired, ampWarn, endWarn, minEnd, warnings };
 }

@@ -32,5 +32,7 @@ export function computeMainlinePressure(input: MainlinePressureInput) {
   const headFt = id > 0 ? (10.46 * input.lengthFt * (input.gpm / c) ** 1.85) / id ** 4.8655 : 0;
   const psi = headFt / 2.31;
   const velocity = id > 0 ? (0.408 * input.gpm) / id ** 2 : 0;
-  return { c, nom, rating, id, headFt, psi, velocity };
+  const velocityMps = velocity * 0.3048;
+  const bar = psi * 0.06895;
+  return { c, nom, rating, id, headFt, psi, bar, velocity, velocityMps };
 }

@@ -33,6 +33,10 @@ h2,
   display: revert;
 }
 
+.print-sheet + .print-sheet {
+  margin-top: 2rem;
+}
+
 @media print {
   body {
     background: white;
@@ -45,5 +49,17 @@ h2,
   a {
     color: inherit;
     text-decoration: none;
+  }
+
+  .print-sheet {
+    break-after: page;
+    page-break-after: always;
+    margin-top: 0 !important;
+    box-shadow: none;
+  }
+
+  .print-sheet:last-child {
+    break-after: auto;
+    page-break-after: auto;
   }
 }

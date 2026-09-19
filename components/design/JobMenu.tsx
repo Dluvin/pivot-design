@@ -4,6 +4,7 @@ import { DEFAULT_JOB, JOB_KEY, type DesignJob } from "@/lib/design/job";
 import { DESIGN_TOOLS } from "@/lib/design/tools";
 import { DesignChrome, Input, YellowHint } from "@/components/design/DesignChrome";
 import { usePersistentState } from "@/components/design/usePersistentState";
+import { ProjectLibrary } from "@/components/design/ProjectLibrary";
 import Link from "next/link";
 
 export function JobMenu() {
@@ -15,6 +16,10 @@ export function JobMenu() {
   return (
     <DesignChrome title="Pivot design" subtitle="Menu-driven calculators from the Pivot Design workbook." active="job">
       <YellowHint />
+      <div className="mt-4">
+        <ProjectLibrary />
+      </div>
+      <h2 className="font-display mt-8 text-xl">Job header</h2>
       <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         <Input label="Name" value={job.name} onChange={(name) => patch({ name })} />
         <Input label="Field name" value={job.fieldName} onChange={(fieldName) => patch({ fieldName })} />
@@ -22,6 +27,18 @@ export function JobMenu() {
         <Input label="Phone" value={job.phone} onChange={(phone) => patch({ phone })} />
         <Input label="Salesperson" value={job.salesperson} onChange={(salesperson) => patch({ salesperson })} />
         <Input label="Dealership" value={job.dealership} onChange={(dealership) => patch({ dealership })} />
+        <Input
+          label="Pivot GPM"
+          type="number"
+          value={job.pivotGpm}
+          onChange={(pivotGpm) => patch({ pivotGpm: Number(pivotGpm) })}
+        />
+        <Input
+          label="Desired length, ft"
+          type="number"
+          value={job.desiredLengthFt}
+          onChange={(desiredLengthFt) => patch({ desiredLengthFt: Number(desiredLengthFt) })}
+        />
       </div>
       <label className="mt-3 block text-sm">
         <span className="text-stone-600">Comments</span>
@@ -33,8 +50,8 @@ export function JobMenu() {
         />
       </label>
       <p className="mt-6 text-xs text-stone-500">
-        Formulas match Pivot Design 1.0 (October 3, 2001). Application rates are estimates — they depend on GPM, PSI, and
-        end-gun throw you enter.
+        Formulas match Pivot Design 1.52 (November 3, 2009) with 1.0 engines where the sheets were unchanged. Linear
+        timer is kept from 1.0. Application rates are estimates — they depend on GPM, PSI, and end-gun throw.
       </p>
       <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {DESIGN_TOOLS.filter((t) => t.id !== "job").map((tool) => (

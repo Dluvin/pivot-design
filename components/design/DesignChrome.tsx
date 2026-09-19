@@ -2,6 +2,9 @@
 
 import Link from "next/link";
 import { DESIGN_TOOLS } from "@/lib/design/tools";
+import { DEFAULT_JOB, JOB_KEY, type DesignJob } from "@/lib/design/job";
+import { usePersistentState } from "@/components/design/usePersistentState";
+import { PrintBrand } from "@/components/design/PrintBrand";
 
 export function DesignChrome({
   title,
@@ -14,6 +17,8 @@ export function DesignChrome({
   active: string;
   children: React.ReactNode;
 }) {
+  const [job] = usePersistentState<DesignJob>(JOB_KEY, DEFAULT_JOB);
+
   return (
     <div className="grid gap-6 lg:grid-cols-[220px_1fr]">
       <aside className="no-print rounded-xl border border-stone-200 bg-white p-3">
@@ -30,21 +35,31 @@ export function DesignChrome({
               {tool.label}
             </Link>
           ))}
+          <Link href="/print-package" className="rounded-md px-2 py-1.5 text-stone-700 hover:bg-stone-50">
+            Print package
+          </Link>
         </nav>
       </aside>
       <div>
+        <PrintBrand sheet={title} customer={job.name} fieldName={job.fieldName} />
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <h1 className="font-display text-3xl">{title}</h1>
             {subtitle ? <p className="mt-1 text-stone-600">{subtitle}</p> : null}
           </div>
-          <div className="no-print">
+          <div className="no-print flex flex-wrap gap-2">
+            <Link
+              href="/print-package"
+              className="rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-semibold"
+            >
+              Print package
+            </Link>
             <button
               type="button"
               onClick={() => window.print()}
               className="rounded-lg bg-emerald-800 px-4 py-2 text-sm font-semibold text-white"
             >
-              Print / Save as PDF
+              Print this page
             </button>
           </div>
         </div>
@@ -147,7 +162,7 @@ export function Select({
 
 export function Result({ label, value, warn }: { label: string; value: string; warn?: boolean }) {
   return (
-    <div className="rounded-lg border border-stone-200 bg-white p-3">
+    <div className={`rounded-lg border bg-white p-3 ${warn ? "border-red-400" : "border-stone-200"}`}>
       <p className="text-xs uppercase tracking-wide text-stone-500">{label}</p>
       <p className={`mt-1 text-xl font-semibold ${warn ? "text-red-700" : ""}`}>{value}</p>
     </div>
